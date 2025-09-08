@@ -6,6 +6,7 @@ import 'package:my_finances/models/payment.dart';
 import 'package:my_finances/models/recurrent_payment.dart';
 import 'package:path/path.dart';
 import 'package:sqflite/sqflite.dart';
+import 'package:sqflite_common_ffi/sqflite_ffi.dart';
 
 Future<Database> getDatabase() async {
   return openDatabase(
@@ -16,11 +17,13 @@ Future<Database> getDatabase() async {
       await RecurrentPayment.createTable(db);
       await Payment.createTable(db);
     },
+    version: 1,
   );
 }
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  databaseFactory = databaseFactoryFfi;
   final database = await getDatabase();
   runApp(const MainApp());
 }

@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:my_finances/components/drawer_item/drawer_item.dart';
+import 'package:my_finances/components/drawer_item/drawer_item_entry.dart';
 
 class MainApp extends StatelessWidget {
   const MainApp({super.key});
@@ -11,6 +13,61 @@ class MainApp extends StatelessWidget {
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
       ),
       home: Scaffold(
+        appBar: AppBar(leading: null),
+        drawer: Drawer(
+          child: ListView(
+            children: [
+              DrawerHeader(
+                child: Row(
+                  children: [
+                    CircleAvatar(),
+                    Column(
+                      children: [
+                        Text("Hola, usuario"),
+                        Row(children: [Text("21 años"), Text("-"), Text("Él")]),
+                      ],
+                    ),
+                  ],
+                ),
+              ),
+              DrawerItem(
+                entry: DrawerItemEntry(
+                  route: "something",
+                  subroutes: [],
+                  navigatable: false,
+                  title: "Something",
+                ),
+                isSelected: false,
+                selectedSubroute: [],
+                navigateTo: (_) {},
+              ),
+              DrawerItem(
+                entry: DrawerItemEntry(
+                  route: "a",
+                  subroutes: [
+                    DrawerItemEntry(
+                      route: "b",
+                      subroutes: [],
+                      navigatable: true,
+                      title: "B",
+                    ),
+                    DrawerItemEntry(
+                      route: "c",
+                      subroutes: [],
+                      navigatable: true,
+                      title: "C",
+                    ),
+                  ],
+                  navigatable: false,
+                  title: "A",
+                ),
+                isSelected: true,
+                selectedSubroute: ["b"],
+                navigateTo: (_) {},
+              ),
+            ],
+          ),
+        ),
         body: SingleChildScrollView(
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.stretch,
