@@ -1,5 +1,9 @@
 import 'dart:io';
 
+import 'package:my_finances/database/account_service.dart';
+import 'package:my_finances/database/category_service.dart';
+import 'package:my_finances/database/payment_service.dart';
+import 'package:my_finances/database/recurrent_payment_service.dart';
 import 'package:my_finances/models/account.dart';
 import 'package:my_finances/models/category.dart';
 import 'package:my_finances/models/payment.dart';
@@ -20,10 +24,10 @@ class DatabaseHelper {
     final database = await openDatabase(
       join(await getDatabasesPath(), "my_finances.db"),
       onCreate: (database, version) async {
-        await Account.createTable(database);
-        await Category.createTable(database);
-        await RecurrentPayment.createTable(database);
-        await Payment.createTable(database);
+        await AccountService().createTable(database);
+        await CategoryService().createTable(database);
+        await RecurrentPaymentService().createTable(database);
+        await PaymentService().createTable(database);
       },
       version: 1,
     );
